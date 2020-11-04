@@ -25,23 +25,34 @@ public void initialiserPartie(){
     Grille grille = new Grille(Cellules);
     grille.viderGrille();
     Random rand = new Random();
-    int compteur=0;
-    for (int i=0;i<5;i++){
-        int ligne_trou_noir=rand.nextInt(6);
-        int colonne_trou_noir=rand.nextInt(7);
-        if (compteur<2){
-            if (!grille.placerDesintegrateur(ligne_trou_noir,colonne_trou_noir)){
-            compteur--;}
-        compteur+=1;}
-    if (!grille.placerTrouNoir(ligne_trou_noir,colonne_trou_noir)){
-        i--;}         
+    for (int i=0;i<2;i++){
+        int ligne=rand.nextInt(6);
+        int colonne=rand.nextInt(7);
+        grille.placerDesintegrateur(ligne,colonne);
+        grille.placerTrouNoir(ligne,colonne);    
     }
     for (int i=0;i<3; i++){
-        int ligne_desint=rand.nextInt(6);
-        int colonne_desint=rand.nextInt(7);
-        if (!grille.placerDesintegrateur(ligne_desint,colonne_desint)||grille.Cellules[ligne_desint][colonne_desint])
+        int ligne=rand.nextInt(6);
+        int colonne=rand.nextInt(7);
+        grille.placerDesintegrateur(ligne,colonne);
     }
-    
+    for (int i=0;i<3; i++){
+        int ligne=rand.nextInt(6);
+        int colonne=rand.nextInt(7);
+        grille.placerTrouNoir(ligne,colonne);
+    }
+    for (int i = 0; i<21; i++){
+        Jeton jeton = new Jeton("rouge");
+        ListeJoueurs[0].ListeJetons[i] = jeton;
+    }
+    for (int i = 0; i<21; i++){
+        Jeton jeton = new Jeton("jaune");
+        ListeJoueurs[1].ListeJetons[i] = jeton;
+    }
 }
 
+ public void debuterPartie(){
+     while ()
+
+}
 }
