@@ -54,6 +54,7 @@ public void viderGrille(){
 }
 public void afficherGrilleSurConsole(){
     
+    
 }
 public boolean celluleOccupee(int ligne, int colonne){
     if (Cellules[ligne][colonne].recupererJeton() != null){
