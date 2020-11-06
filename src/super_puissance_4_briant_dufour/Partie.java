@@ -6,6 +6,7 @@ SUPER PUISSANCE 4
 package super_puissance_4_briant_dufour;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -46,12 +47,11 @@ public void initialiserPartie(){
         joueur2.ajouterJeton(jeton2);
     }
     
-    Random rand = new Random();
     boolean premier = rand.nextBoolean();
     if (premier==true){
-        JoueurCourant=Listejoueurs[0];
+        joueurCourant=ListeJoueurs[0];
     }else{
-        JoueurCourant=Listejoueurs[1];
+        joueurCourant=ListeJoueurs[1];
     }
     
    
@@ -87,9 +87,34 @@ public void initialiserPartie(){
         while (action<1 || action>3){
             System.out.println("Entrer un chiffre entre 1 et 3.");
             action=sc.nextInt();
-    }
-        if (action==1){
-            boolean
         }
-    
+        switch (action){
+            case 1 : 
+                System.out.println("Vous avez décidé de jouer un jeton !");
+                System.out.println("Veuillez entrer une colonne");
+                int colonne = sc.nextInt()-1;
+                while (colonne < 0 || colonne > 6){
+                    System.out.println("Veuillez entrer une colonne");
+                    colonne = sc.nextInt()-1;
+                }
+                Jeton jetonAJouer = null;
+                for (int i = 0; i<21; i++){
+                   if (joueurCourant.ListeJetons[i] != null){
+                       jetonAJouer = joueurCourant.ListeJetons[i];
+                       break;
+                   }
+                }
+                boolean jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
+                while (jetonJoue == false){
+                    System.out.println("Colonne pleine. Veuillez en choisir une autre: ");
+                    colonne = sc.nextInt()-1;
+                    jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
+                }
+        
+        }                     
+    }
+}
+ 
+ 
+ 
 }
