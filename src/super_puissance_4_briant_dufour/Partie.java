@@ -12,6 +12,7 @@ import java.util.Scanner;
  *
  * @author romdu
  */
+
 public class Partie {
     Joueur [] ListeJoueurs = new Joueur [2];
     Joueur joueurCourant;
