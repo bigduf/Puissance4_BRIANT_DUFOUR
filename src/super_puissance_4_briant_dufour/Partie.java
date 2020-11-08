@@ -83,6 +83,7 @@ public void initialiserPartie(){
         System.out.println("1. Placer un jeton");
         System.out.println("2. Récupérer un jeton");
         System.out.println("3. Utiliser un désintégrateur");
+        System.out.println("Que voulez-vous faire ?");
         int action=sc.nextInt();
         while (action<1 || action>3){
             System.out.println("Entrer un chiffre entre 1 et 3.");
@@ -110,11 +111,62 @@ public void initialiserPartie(){
                     colonne = sc.nextInt()-1;
                     jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
                 }
-        
-        }                     
+                if (joueurCourant == ListeJoueurs[0]){
+                    joueurCourant = ListeJoueurs[1];
+                }else{
+                    joueurCourant = ListeJoueurs[0];
+                }
+                break;
+            case 2 :
+                int colonneRecup;
+                int ligneRecup;
+                System.out.println("Vous avez décidé de récupérer un jeton !");
+                System.out.println("Veuillez saisir la colonne : ");
+                colonneRecup = sc.nextInt()-1;
+                while (colonneRecup<0 || colonneRecup>6){
+                    System.out.println("Veuillez saisir une colonne valide (entre 1 et 7).");
+                    colonneRecup = sc.nextInt()-1;
+                }
+                System.out.println("Veuillez saisir la ligne : ");
+                ligneRecup = sc.nextInt()-1;               
+                while (ligneRecup<0 || ligneRecup>5){
+                    System.out.println("Veuillez saisir une ligne valide (entre 1 et 6.");
+                    ligneRecup = sc.nextInt()-1;
+                }   
+                if (GrilleDeJeu.Cellules[ligneRecup][colonneRecup].jetonCourant != null && GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
+                    joueurCourant.ajouterJeton(GrilleDeJeu.recupererJeton(ligneRecup, colonneRecup));
+                    GrilleDeJeu.tasserGrille(colonneRecup);
+                }
+                break;
+            case 3:
+                if(joueurCourant.nombreDesintegrateurs==0){
+                    break;
+                }
+                int colonneDesint;
+                int ligneDesint;
+                System.out.println("Vous avez décidé de désintégrer un jeton !");
+                System.out.println("Veuillez saisir la colonne : ");
+                colonneDesint = sc.nextInt()-1;
+                while (colonneDesint<0 || colonneDesint>6){
+                    System.out.println("Veuillez saisir une colonne valide (entre 1 et 7).");
+                    colonneDesint = sc.nextInt()-1;
+                }
+                System.out.println("Veuillez saisir la ligne : ");
+                ligneDesint = sc.nextInt()-1;               
+                while (ligneDesint<0 || ligneDesint>5){
+                    System.out.println("Veuillez saisir une ligne valide (entre 1 et 6.");
+                    ligneDesint = sc.nextInt()-1;
+                } 
+                if (GrilleDeJeu.Cellules[ligneDesint][colonneDesint].jetonCourant != null){
+                    GrilleDeJeu.supprimerJeton(ligneDesint, colonneDesint);
+                    GrilleDeJeu.tasserGrille(colonneDesint);
+                    joueurCourant.utiliserDesintegrateur();
+                }
+                break;
     }
 }
  
  
  
+}
 }

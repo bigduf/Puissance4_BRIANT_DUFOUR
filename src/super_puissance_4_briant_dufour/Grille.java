@@ -125,6 +125,7 @@ public void tasserGrille(int j){
     for (int i=0;i<5;i++){
         if(Cellules[5-i][j].jetonCourant==null){
            Cellules[5-i][j].jetonCourant=Cellules[4-i][j].jetonCourant;
+           Cellules[4-i][j].jetonCourant=null;
         }
     }
 }

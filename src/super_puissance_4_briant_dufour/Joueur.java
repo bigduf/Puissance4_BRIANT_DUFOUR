@@ -22,15 +22,10 @@ public void affecterCouleur(String uneCouleur){
     Couleur = uneCouleur;
 }
 public void ajouterJeton(Jeton unJeton){
-    /*if (ListeJetons[20] != null){
+    /*if (nombreJetonsRestants == 21){
         break;
-    } else {
-        liste_voitures[nbVoitures] = voiture_a_ajouter;
-        nbVoitures += 1;
-        voiture_a_ajouter.proprietaire = this; 
-        return true;
-    };
-    */
+    }
+*/
     for (int i=0; i<21; i++){
         if (ListeJetons[i] == null){
             ListeJetons[i]=unJeton;
