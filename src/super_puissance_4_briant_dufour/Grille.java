@@ -66,6 +66,7 @@ public void afficherGrilleSurConsole(){
                 System.out.print("[j]");
             }
         }
+        System.out.println("");
     }
     
 }
