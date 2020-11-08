@@ -82,6 +82,8 @@ public void initialiserPartie(){
  public void debuterPartie(){
     initialiserPartie();
     while ((GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) != true) && (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) != true )){
+        System.out.println("Il vous reste "+ joueurCourant.nombreJetonsRestants+ " jetons.");
+        System.out.println("Il vous reste "+ joueurCourant.nombreDesintegrateurs+ " désintégrateurs.");
         Scanner sc=new Scanner(System.in);
         System.out.println("Actions possibles :");
         System.out.println("1. Placer un jeton");
@@ -95,6 +97,10 @@ public void initialiserPartie(){
         }
         switch (action){
             case 1 : 
+                if (joueurCourant.ListeJetons[20]==null){
+                    System.out.println("Jetons épuisés, vous ne pouvez jouer.");
+                    break;
+                }
                 System.out.println("Vous avez décidé de jouer un jeton !");
                 System.out.println("Veuillez entrer une colonne");
                 int colonne = sc.nextInt()-1;
@@ -102,18 +108,12 @@ public void initialiserPartie(){
                     System.out.println("Veuillez entrer une colonne");
                     colonne = sc.nextInt()-1;
                 }
-                Jeton jetonAJouer = null;
-                for (int i = 0; i<21; i++){
-                   if (joueurCourant.ListeJetons[i] != null){
-                       jetonAJouer = joueurCourant.ListeJetons[i];
-                       break;
-                   }
-                }
-                boolean jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(jetonAJouer,colonne);
+
+                boolean jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(joueurCourant,colonne);
                 while (jetonJoue == false){
                     System.out.println("Colonne pleine. Veuillez en choisir une autre: ");
                     colonne = sc.nextInt()-1;
-                    jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(jetonAJouer,colonne);
+                    jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(joueurCourant,colonne);
                 }
                 
                 break;
@@ -154,6 +154,7 @@ public void initialiserPartie(){
                 
             case 3 :
                 if(joueurCourant.nombreDesintegrateurs==0){
+                    System.out.println("Vous n'avez pas de désintégrateurs.");
                     break;
                 }
                 int colonneDesint;
@@ -171,11 +172,24 @@ public void initialiserPartie(){
                     System.out.println("Veuillez saisir une ligne valide (entre 1 et 6.");
                     ligneDesint = sc.nextInt()-1;
                 } 
-                if (GrilleDeJeu.Cellules[ligneDesint][colonneDesint].jetonCourant != null){
-                    GrilleDeJeu.supprimerJeton(ligneDesint, colonneDesint);
-                    GrilleDeJeu.tasserGrille(colonneDesint);
-                    joueurCourant.utiliserDesintegrateur();
+                while (GrilleDeJeu.Cellules[ligneDesint][colonneDesint].jetonCourant == null){
+                    System.out.println("Il n'y a pas de jeton à désintégrer.");
+                    System.out.println("Veuillez saisir la colonne : ");
+                    colonneDesint = sc.nextInt()-1;
+                    while (colonneDesint<0 || colonneDesint>6){
+                        System.out.println("Veuillez saisir une colonne valide (entre 1 et 7).");
+                        colonneDesint = sc.nextInt()-1;
                 }
+                    System.out.println("Veuillez saisir la ligne : ");
+                    ligneDesint = sc.nextInt()-1;               
+                    while (ligneDesint<0 || ligneDesint>5){
+                        System.out.println("Veuillez saisir une ligne valide (entre 1 et 6.");
+                        ligneDesint = sc.nextInt()-1;
+                }
+                }
+                GrilleDeJeu.supprimerJeton(ligneDesint, colonneDesint);
+                GrilleDeJeu.tasserGrille(colonneDesint);
+                joueurCourant.utiliserDesintegrateur();
                 break;
     }
         if (joueurCourant == ListeJoueurs[0]){
@@ -194,4 +208,4 @@ public void initialiserPartie(){
         System.out.println(ListeJoueurs[1].Nom +" a gagné");}
      
     }
-        }
+}

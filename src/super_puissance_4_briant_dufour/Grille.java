@@ -18,15 +18,30 @@ public Grille(){
         }
 }
 }
-public boolean ajouterJetonDansColonne(Jeton jeton, int nb){
+public boolean ajouterJetonDansColonne(Joueur joueur, int nb){
     for (int i=0; i<6; i++){
         if (Cellules[5-i][nb].jetonCourant == null){
-            if (Cellules[5-i][nb].presenceDesintegrateur()){
-                Cellules[5-i][nb].recupererDesintegrateur();
-                /* il faut ajouter +1 au nb de désintégrateur du joueur courant */
+            Jeton jeton = null;
+            for (int j = 0; j<21; j++){
+                if (joueur.ListeJetons[j] != null){
+                    jeton = joueur.ListeJetons[j];
+                    joueur.ListeJetons[j] = null;
+                    break;
+                }
             }
             Cellules[5-i][nb].affecterJeton(jeton);
+            joueur.nombreJetonsRestants+=-1;
+            if (Cellules[5-i][nb].presenceDesintegrateur()){
+                Cellules[5-i][nb].recupererDesintegrateur();
+                joueur.nombreDesintegrateurs+=1;
+                System.out.println("Vous avez gagné un désintégrateur.");
+            }
+            if (Cellules[5-1][nb].presenceTrouNoir()){
+                Cellules[5-i][nb].activerTrouNoir();
+                System.out.println("Vous avez été aspiré par un trou noir!!");
+            }
             return true;
+            
     }
         if (Cellules[0][nb].jetonCourant != null){
             return false;
@@ -60,10 +75,8 @@ public void afficherGrilleSurConsole(){
         for (int j=0; j<7; j++){
             if (Cellules[i][j].jetonCourant == null){
                 if (Cellules[i][j].presenceTrouNoir()&& Cellules[i][j].presenceDesintegrateur()){
-                    System.out.print("[d]");
-                   
-                }
-                else if (Cellules[i][j].presenceDesintegrateur()){
+                    System.out.print("[t]");
+                }else if (Cellules[i][j].presenceDesintegrateur()){
                     System.out.print("[d]");
                 }else if (Cellules[i][j].presenceTrouNoir()) {
                     System.out.print("[t]");

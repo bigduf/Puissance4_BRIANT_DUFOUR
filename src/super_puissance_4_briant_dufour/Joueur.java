@@ -39,6 +39,7 @@ public void obtenirDesintegrateur(){
 public boolean utiliserDesintegrateur(){
     if (nombreDesintegrateurs == 0){
         return false;
+        
     }else{
     System.out.println("Désintégrateur utilisé");
     nombreDesintegrateurs += -1;
