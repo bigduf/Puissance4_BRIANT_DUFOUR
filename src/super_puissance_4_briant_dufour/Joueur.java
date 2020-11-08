@@ -25,7 +25,7 @@ public void ajouterJeton(Jeton unJeton){
     /*if (nombreJetonsRestants == 21){
         break;
     }
-*/
+    */
     for (int i=0; i<21; i++){
         if (ListeJetons[i] == null){
             ListeJetons[i]=unJeton;

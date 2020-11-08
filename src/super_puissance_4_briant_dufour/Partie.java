@@ -53,6 +53,9 @@ public void initialiserPartie(){
     }else{
         joueurCourant=ListeJoueurs[1];
     }
+    System.out.println("Au tour de "+joueurCourant.Nom);
+
+    
     
    
     for (int i=0;i<2;i++){
@@ -61,17 +64,18 @@ public void initialiserPartie(){
         GrilleDeJeu.placerDesintegrateur(ligne,colonne);
         GrilleDeJeu.placerTrouNoir(ligne,colonne);    
     }
-    for (int i=0;i<3; i++){
+    for (int i=0; i<3; i++){
         int ligne=rand.nextInt(6);
         int colonne=rand.nextInt(7);
         GrilleDeJeu.placerDesintegrateur(ligne,colonne);
     }
-    for (int i=0;i<3; i++){
+    for (int i=0; i<3; i++){
         int ligne=rand.nextInt(6);
         int colonne=rand.nextInt(7);
         GrilleDeJeu.placerTrouNoir(ligne,colonne);
     }
     
+    GrilleDeJeu.afficherGrilleSurConsole();
 }
 
  public void debuterPartie(){
@@ -105,15 +109,10 @@ public void initialiserPartie(){
                    }
                 }
                 boolean jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
-                while (jetonJoue == false){
+                while (jetonJoue == true){
                     System.out.println("Colonne pleine. Veuillez en choisir une autre: ");
                     colonne = sc.nextInt()-1;
                     jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
-                }
-                if (joueurCourant == ListeJoueurs[0]){
-                    joueurCourant = ListeJoueurs[1];
-                }else{
-                    joueurCourant = ListeJoueurs[0];
                 }
                 break;
                 
@@ -133,15 +132,36 @@ public void initialiserPartie(){
                 while (ligneRecup<0 || ligneRecup>5){
                     System.out.println("Veuillez saisir une ligne valide (entre 1 et 6.");
                     ligneRecup = sc.nextInt()-1;
-                }   
+                }
+                
+                while(GrilleDeJeu.Cellules[ligneRecup][colonneRecup].jetonCourant == null || !GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
+                    if(GrilleDeJeu.Cellules[ligneRecup][colonneRecup].jetonCourant == null ){
+                        System.out.println("Cette case est vide, recommencer");}
+                    if(!GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
+                        System.out.println("Ce jeton appartient à votre adversaire, recommencer");}
+                    System.out.println("Veuillez saisir la colonne : ");
+                    colonneRecup = sc.nextInt()-1;
+                    while (colonneRecup<0 || colonneRecup>6){
+                        System.out.println("Veuillez saisir une colonne valide (entre 1 et 7).");
+                        colonneRecup = sc.nextInt()-1;
+                }
+                    System.out.println("Veuillez saisir la ligne : ");
+                    ligneRecup = sc.nextInt()-1;               
+                    while (ligneRecup<0 || ligneRecup>5){
+                        System.out.println("Veuillez saisir une ligne valide (entre 1 et 6).");
+                        ligneRecup = sc.nextInt()-1;
+                    } 
+                }    
+                    
                 if (GrilleDeJeu.Cellules[ligneRecup][colonneRecup].jetonCourant != null && GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
                     joueurCourant.ajouterJeton(GrilleDeJeu.recupererJeton(ligneRecup, colonneRecup));
                     GrilleDeJeu.tasserGrille(colonneRecup);
-                }
+                } 
+                       
                 break;
                 
                 
-            case 3:
+            case 3 :
                 if(joueurCourant.nombreDesintegrateurs==0){
                     break;
                 }
@@ -167,6 +187,12 @@ public void initialiserPartie(){
                 }
                 break;
     }
+        if (joueurCourant == ListeJoueurs[0]){
+            joueurCourant = ListeJoueurs[1];
+            
+        }else{
+            joueurCourant = ListeJoueurs[0];}
+        System.out.println("Au tour de "+joueurCourant.Nom);
 }
 }
 }

@@ -52,7 +52,21 @@ public void viderGrille(){
     }
 }
 public void afficherGrilleSurConsole(){
-    
+    for (int i=0; i<6; i++){
+        for (int j=0; j<7; j++){
+            if (Cellules[i][j].jetonCourant == null){
+                if (Cellules[i][j].presenceDesintegrateur()){
+                    System.out.print("[d]");
+                }else{
+                    System.out.print("[ ]");
+                }
+            } else if (Cellules[i][j].jetonCourant.Couleur.equals("rouge")){
+                System.out.print("[r]");
+            } else if (Cellules[i][j].jetonCourant.Couleur.equals("jaune")){
+                System.out.print("[j]");
+            }
+        }
+    }
     
 }
 public boolean celluleOccupee(int ligne, int colonne){
