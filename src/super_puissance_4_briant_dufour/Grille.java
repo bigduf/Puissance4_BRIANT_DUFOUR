@@ -11,11 +11,10 @@ package super_puissance_4_briant_dufour;
 public class Grille {
     Cellule [][] Cellules = new Cellule[6][7];
 
-public Grille(Cellule[][] uneGrille){
-    Cellules = uneGrille;
+public Grille(){
     for (int i=0 ; i<6 ; i++) {
         for (int j=0; j<7; j++){
-            uneGrille[i][j] = new Cellule();    
+            Cellules[i][j] = new Cellule();    
         }
 }
 }

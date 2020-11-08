@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Partie {
     Joueur [] ListeJoueurs = new Joueur [2];
     Joueur joueurCourant;
+    Grille GrilleDeJeu = new Grille();
     
 public void attribuerCouleurAuxJoueurs(){
     ListeJoueurs[0].affecterCouleur("rouge");
@@ -22,9 +23,7 @@ public void attribuerCouleurAuxJoueurs(){
 }
 
 public void initialiserPartie(){
-    Cellule [][] Cellules = new Cellule[6][7];
-    Grille grille = new Grille(Cellules);
-    grille.viderGrille();
+    GrilleDeJeu.viderGrille();
     Random rand = new Random();
     
     Scanner sc = new Scanner(System.in);
@@ -58,26 +57,26 @@ public void initialiserPartie(){
     for (int i=0;i<2;i++){
         int ligne=rand.nextInt(6);
         int colonne=rand.nextInt(7);
-        grille.placerDesintegrateur(ligne,colonne);
-        grille.placerTrouNoir(ligne,colonne);    
+        GrilleDeJeu.placerDesintegrateur(ligne,colonne);
+        GrilleDeJeu.placerTrouNoir(ligne,colonne);    
     }
     for (int i=0;i<3; i++){
         int ligne=rand.nextInt(6);
         int colonne=rand.nextInt(7);
-        grille.placerDesintegrateur(ligne,colonne);
+        GrilleDeJeu.placerDesintegrateur(ligne,colonne);
     }
     for (int i=0;i<3; i++){
         int ligne=rand.nextInt(6);
         int colonne=rand.nextInt(7);
-        grille.placerTrouNoir(ligne,colonne);
+        GrilleDeJeu.placerTrouNoir(ligne,colonne);
     }
     
 }
 
  public void debuterPartie(){
-     Cellule [][] Cellules = new Cellule[6][7];
-     Grille GrilleDeJeu = new Grille(Cellules);
-     while (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) != true || GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) != true ){
+     Joueur joueur1 = ListeJoueurs[0];
+     Joueur joueur2 = ListeJoueurs[1];
+     while ((GrilleDeJeu.etreGagnantePourJoueur(joueur1) != true) || (GrilleDeJeu.etreGagnantePourJoueur(joueur2) != true )){
         Scanner sc=new Scanner(System.in);
         System.out.println("Actions possibles :");
         System.out.println("1. Placer un jeton");
