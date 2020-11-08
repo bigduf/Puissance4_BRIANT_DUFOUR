@@ -36,6 +36,7 @@ public boolean ajouterJetonDansColonne(Joueur joueur, int nb){
                 joueur.nombreDesintegrateurs+=1;
                 System.out.println("Vous avez gagné un désintégrateur.");
             }
+            
             if (Cellules[5-1][nb].presenceTrouNoir()){
                 Cellules[5-i][nb].activerTrouNoir();
                 System.out.println("Vous avez été aspiré par un trou noir!!");
