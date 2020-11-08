@@ -75,9 +75,8 @@ public void initialiserPartie(){
 }
 
  public void debuterPartie(){
-     Joueur joueur1 = ListeJoueurs[0];
-     Joueur joueur2 = ListeJoueurs[1];
-     while ((GrilleDeJeu.etreGagnantePourJoueur(joueur1) != true) || (GrilleDeJeu.etreGagnantePourJoueur(joueur2) != true )){
+    initialiserPartie();
+    while ((GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) != true) || (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) != true )){
         Scanner sc=new Scanner(System.in);
         System.out.println("Actions possibles :");
         System.out.println("1. Placer un jeton");
@@ -169,8 +168,5 @@ public void initialiserPartie(){
                 break;
     }
 }
- 
- 
- 
 }
 }
