@@ -47,7 +47,7 @@ public boolean etreRemplie(){
 public void viderGrille(){
     for (int i=0; i<6; i++){
         for (int j=0; j<7; j++){
-            Cellules[i][j]=new Cellule();
+            Cellules[i][j].jetonCourant = null;
         }
     }
 }
@@ -106,17 +106,17 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
     }
     for (int i = 0; i<3; i++){
         for (int j = 0; j<4; j++){
-            if (Cellules[i][j].jetonCourant == null){
-                break;
-            }else if (Cellules[i+1][j+1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j+2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j+3].jetonCourant.Couleur.equals(couleur)){
+            if (Cellules[i][j].jetonCourant != null){
+                if (Cellules[i][j].jetonCourant.Couleur.equals(couleur) && Cellules[i+1][j+1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j+2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j+3].jetonCourant.Couleur.equals(couleur)){
                     return true;
+                }   
             }
         }
-    }   
+    }
     for (int i = 0; i<3; i++){
         for (int j = 3; j<7; j++){
-            if (Cellules[i][j].jetonCourant.Couleur.equals(couleur)){
-                if (Cellules[i+1][j-1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j-2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j-3].jetonCourant.Couleur.equals(couleur)){
+            if (Cellules[i][j].jetonCourant != null){
+                if (Cellules[i][j].jetonCourant.Couleur.equals(couleur) && Cellules[i+1][j-1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j-2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j-3].jetonCourant.Couleur.equals(couleur)){
                     return true;
             }
         }
