@@ -117,6 +117,8 @@ public void initialiserPartie(){
                     joueurCourant = ListeJoueurs[0];
                 }
                 break;
+                
+                
             case 2 :
                 int colonneRecup;
                 int ligneRecup;
@@ -138,6 +140,8 @@ public void initialiserPartie(){
                     GrilleDeJeu.tasserGrille(colonneRecup);
                 }
                 break;
+                
+                
             case 3:
                 if(joueurCourant.nombreDesintegrateurs==0){
                     break;
