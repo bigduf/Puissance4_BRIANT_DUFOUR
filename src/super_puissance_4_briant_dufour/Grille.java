@@ -47,7 +47,7 @@ public boolean etreRemplie(){
 public void viderGrille(){
     for (int i=0; i<6; i++){
         for (int j=0; j<7; j++){
-            Cellules[i][j]=null;
+            Cellules[i][j]=new Cellule();
         }
     }
 }
@@ -74,10 +74,13 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
     int compteur = 0;
     for (int i = 0; i<7; i++){
         for (int j = 0; j<6; j++){
-            if (Cellules[i][j].jetonCourant.Couleur.equals(couleur)){
-                compteur+=1;
+            if (Cellules[i][j].jetonCourant == null){
+                compteur=0;
+            }
+            else if (!Cellules[i][j].jetonCourant.Couleur.equals(couleur)){
+                compteur=0;
             }else{
-                compteur = 0;
+                compteur += 1;
             }
             if (compteur==4){
                 return true;
