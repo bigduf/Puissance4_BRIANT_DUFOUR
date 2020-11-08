@@ -23,9 +23,7 @@ public boolean ajouterJetonDansColonne(Jeton jeton, int nb){
         if (Cellules[5-i][nb].jetonCourant == null){
             if (Cellules[5-i][nb].presenceDesintegrateur()){
                 Cellules[5-i][nb].recupererDesintegrateur();
-                /* il faut ajouter +1 au nb de désintégrateur du joueur courant
-                
-                */
+                /* il faut ajouter +1 au nb de désintégrateur du joueur courant */
             }
             Cellules[5-i][nb].affecterJeton(jeton);
             return true;
