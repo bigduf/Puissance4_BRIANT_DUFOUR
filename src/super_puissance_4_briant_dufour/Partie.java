@@ -53,7 +53,6 @@ public void initialiserPartie(){
     }else{
         joueurCourant=ListeJoueurs[1];
     }
-    System.out.println("Au tour de "+joueurCourant.Nom);
 
     
     
@@ -76,11 +75,13 @@ public void initialiserPartie(){
     }
     
     GrilleDeJeu.afficherGrilleSurConsole();
+    System.out.println("Au tour de "+joueurCourant.Nom);
+
 }
 
  public void debuterPartie(){
     initialiserPartie();
-    while ((GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) != true) || (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) != true )){
+    while ((GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) != true) && (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) != true )){
         Scanner sc=new Scanner(System.in);
         System.out.println("Actions possibles :");
         System.out.println("1. Placer un jeton");
@@ -108,12 +109,13 @@ public void initialiserPartie(){
                        break;
                    }
                 }
-                boolean jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
-                while (jetonJoue == true){
+                boolean jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(jetonAJouer,colonne);
+                while (jetonJoue == false){
                     System.out.println("Colonne pleine. Veuillez en choisir une autre: ");
                     colonne = sc.nextInt()-1;
-                    jetonJoue = GrilleDeJeu.ajouterJetonDansCollone(jetonAJouer,colonne);
+                    jetonJoue = GrilleDeJeu.ajouterJetonDansColonne(jetonAJouer,colonne);
                 }
+                
                 break;
                 
                 
@@ -139,18 +141,7 @@ public void initialiserPartie(){
                         System.out.println("Cette case est vide, recommencer");}
                     if(!GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
                         System.out.println("Ce jeton appartient à votre adversaire, recommencer");}
-                    System.out.println("Veuillez saisir la colonne : ");
-                    colonneRecup = sc.nextInt()-1;
-                    while (colonneRecup<0 || colonneRecup>6){
-                        System.out.println("Veuillez saisir une colonne valide (entre 1 et 7).");
-                        colonneRecup = sc.nextInt()-1;
-                }
-                    System.out.println("Veuillez saisir la ligne : ");
-                    ligneRecup = sc.nextInt()-1;               
-                    while (ligneRecup<0 || ligneRecup>5){
-                        System.out.println("Veuillez saisir une ligne valide (entre 1 et 6).");
-                        ligneRecup = sc.nextInt()-1;
-                    } 
+                    break;
                 }    
                     
                 if (GrilleDeJeu.Cellules[ligneRecup][colonneRecup].jetonCourant != null && GrilleDeJeu.Cellules[ligneRecup][colonneRecup].lireCouleurDuJeton().equals(joueurCourant.Couleur)){
@@ -191,8 +182,16 @@ public void initialiserPartie(){
             joueurCourant = ListeJoueurs[1];
             
         }else{
-            joueurCourant = ListeJoueurs[0];}
+            joueurCourant = ListeJoueurs[0];
+        }
+        
+        GrilleDeJeu.afficherGrilleSurConsole();
         System.out.println("Au tour de "+joueurCourant.Nom);
-}
-}
-}
+    }
+    if (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[0]) == true){ 
+        System.out.println(ListeJoueurs[0].Nom +" a gagné");}
+    if (GrilleDeJeu.etreGagnantePourJoueur(ListeJoueurs[1]) == true ){
+        System.out.println(ListeJoueurs[1].Nom +" a gagné");}
+     
+    }
+        }

@@ -18,13 +18,19 @@ public Grille(){
         }
 }
 }
-public boolean ajouterJetonDansCollone(Jeton jeton, int nb){
+public boolean ajouterJetonDansColonne(Jeton jeton, int nb){
     for (int i=0; i<6; i++){
-        if (Cellules[5-i][nb] == null){
+        if (Cellules[5-i][nb].jetonCourant == null){
+            if (Cellules[5-i][nb].presenceDesintegrateur()){
+                Cellules[5-i][nb].recupererDesintegrateur();
+                /* il faut ajouter +1 au nb de désintégrateur du joueur courant
+                
+                */
+            }
             Cellules[5-i][nb].affecterJeton(jeton);
             return true;
     }
-        if (Cellules[0][nb] != null){
+        if (Cellules[0][nb].jetonCourant != null){
             return false;
         }
 }  
@@ -55,9 +61,15 @@ public void afficherGrilleSurConsole(){
     for (int i=0; i<6; i++){
         for (int j=0; j<7; j++){
             if (Cellules[i][j].jetonCourant == null){
-                if (Cellules[i][j].presenceDesintegrateur()){
+                if (Cellules[i][j].presenceTrouNoir()&& Cellules[i][j].presenceDesintegrateur()){
                     System.out.print("[d]");
-                }else{
+                   
+                }
+                else if (Cellules[i][j].presenceDesintegrateur()){
+                    System.out.print("[d]");
+                }else if (Cellules[i][j].presenceTrouNoir()) {
+                    System.out.print("[t]");
+                } else {
                     System.out.print("[ ]");
                 }
             } else if (Cellules[i][j].jetonCourant.Couleur.equals("rouge")){
@@ -103,6 +115,7 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
         }
         compteur=0;
     } 
+    compteur = 0;
     for (int j = 0; j<7; j++){
         for (int i = 0; i<6; i++){
             if (Cellules[i][j].jetonCourant == null){
@@ -111,7 +124,7 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
             else if (!Cellules[i][j].jetonCourant.Couleur.equals(couleur)){
                 compteur=0;
             }else{
-                compteur = 0;
+                compteur +=1;
             }
             if (compteur==4){
                 return true;
@@ -121,7 +134,7 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
     }
     for (int i = 0; i<3; i++){
         for (int j = 0; j<4; j++){
-            if (Cellules[i][j].jetonCourant != null){
+            if (Cellules[i][j].jetonCourant != null && Cellules[i+1][j+1].jetonCourant != null && Cellules[i+2][j+2].jetonCourant != null && Cellules[i+3][j+3].jetonCourant != null){
                 if (Cellules[i][j].jetonCourant.Couleur.equals(couleur) && Cellules[i+1][j+1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j+2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j+3].jetonCourant.Couleur.equals(couleur)){
                     return true;
                 }   
@@ -130,7 +143,7 @@ public boolean etreGagnantePourJoueur(Joueur Bob){
     }
     for (int i = 0; i<3; i++){
         for (int j = 3; j<7; j++){
-            if (Cellules[i][j].jetonCourant != null){
+            if (Cellules[i][j].jetonCourant != null && Cellules[i+1][j-1].jetonCourant != null && Cellules[i+2][j-2].jetonCourant != null && Cellules[i+3][j-3].jetonCourant != null){
                 if (Cellules[i][j].jetonCourant.Couleur.equals(couleur) && Cellules[i+1][j-1].jetonCourant.Couleur.equals(couleur) && Cellules[i+2][j-2].jetonCourant.Couleur.equals(couleur) && Cellules[i+3][j-3].jetonCourant.Couleur.equals(couleur)){
                     return true;
             }
